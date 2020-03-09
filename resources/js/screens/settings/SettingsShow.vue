@@ -125,6 +125,8 @@
             return {
                 form: {
                     username: null,
+                    slug: null,
+                    title: null,
                     summary: null,
                     avatar: null,
                     digest: false,
@@ -149,6 +151,8 @@
                     .get('/api/settings')
                     .then(response => {
                         this.form.username = response.data.username
+                        this.form.slug = response.data.slug
+                        this.form.title = response.data.title
                         this.form.summary = response.data.summary
                         this.form.avatar = response.data.avatar
                         this.form.digest = response.data.digest
@@ -181,6 +185,8 @@
                         }
 
                         this.form.username = response.data.username
+                        this.form.slug = response.data.slug
+                        this.form.title = response.data.title
                         this.form.summary = response.data.summary
                         this.form.avatar = response.data.avatar
                         this.form.digest = response.data.digest

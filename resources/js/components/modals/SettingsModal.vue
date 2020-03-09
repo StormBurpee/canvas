@@ -60,6 +60,12 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12">
+                            <label class="font-weight-bold text-uppercase text-muted small mr-3">Featured post?</label>
+                            <input type="checkbox" v-model="activePost.featured" name="featured" :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">{{ trans.app.topic }}</label>
                             <topic-select :topics="topics" :assigned="activePost.topic"/>
                         </div>

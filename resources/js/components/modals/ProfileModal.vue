@@ -72,6 +72,44 @@
                     <div class="form-group row">
                         <div class="col-12">
                             <label class="font-weight-bold text-uppercase text-muted small">
+                                Slug
+                            </label>
+                            <input
+                                name="slug"
+                                type="text"
+                                :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
+                                class="form-control border-0"
+                                title="Slug"
+                                v-model="slug"
+                                placeholder="Choose a slug..."
+                            />
+                            <div v-if="form.errors.username" class="invalid-feedback d-block">
+                                <strong>{{ form.errors.slug[0] }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label class="font-weight-bold text-uppercase text-muted small">
+                                Title
+                            </label>
+                            <input
+                                name="title"
+                                type="text"
+                                :class="!Canvas.darkMode ? 'bg-light': 'bg-darker'"
+                                class="form-control border-0"
+                                title="Title"
+                                v-model="title"
+                                placeholder="Choose a title (e.g Main Author)..."
+                            />
+                            <div v-if="form.errors.title" class="invalid-feedback d-block">
+                                <strong>{{ form.errors.title[0] }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <label class="font-weight-bold text-uppercase text-muted small">
                                 {{ trans.app.summary }}
                             </label>
                             <textarea
@@ -151,6 +189,8 @@
                 selectedImagesForPond: [],
                 isReadyToAcceptUploads: false,
                 username: this.form.username,
+                slug: this.form.slug,
+                title: this.form.title,
                 summary: this.form.summary,
                 avatar: this.form.avatar,
                 maxUploadFilesize: Canvas.maxUpload,
@@ -181,6 +221,8 @@
                     username: this.username,
                     summary: this.summary,
                     avatar: this.avatar,
+                    slug: this.slug,
+                    title: this.title
                 }
 
                 this.$root.$emit('updateAvatar', this.avatar)

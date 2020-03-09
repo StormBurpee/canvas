@@ -22,8 +22,9 @@ class SettingsController extends Controller
 
         return response()->json([
             'username' => $metaData->username ?? null,
+            'slug' => $metaData->slug ?? null,
             'summary' => $metaData->summary ?? null,
-            'avatar' => optional($metaData)->avatar && ! empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
+            'avatar' => optional($metaData)->avatar && !empty(optional($metaData)->avatar) ? $metaData->avatar : "https://secure.gravatar.com/avatar/{$emailHash}?s=500",
             'digest' => $metaData->digest ?? false,
             'dark_mode' => $metaData->dark_mode ?? 0,
         ]);
@@ -41,6 +42,8 @@ class SettingsController extends Controller
         $data = [
             'user_id' => request()->user()->id,
             'username' => request('username') ?? $metaData->username,
+            'slug' => request('slug') ?? $metaData->slug,
+            'title' => request('title') ?? $metaData->title,
             'summary' => request('summary') ?? $metaData->summary,
             'avatar' => request('avatar') ?? $metaData->avatar,
             'digest' => request('digest') ?? $metaData->digest,
@@ -55,7 +58,6 @@ class SettingsController extends Controller
             'user_id' => 'required',
             'username' => [
                 'nullable',
-                'alpha_dash',
                 Rule::unique('canvas_user_meta')->ignore($data['user_id'], 'user_id'),
             ],
         ], $messages)->validate();

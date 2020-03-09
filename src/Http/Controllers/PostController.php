@@ -86,6 +86,7 @@ class PostController extends Controller
         $data = [
             'id' => request('id'),
             'slug' => request('slug'),
+            'featured' => request('featured'),
             'title' => request('title', 'Title'),
             'summary' => request('summary', null),
             'body' => request('body', null),
@@ -117,6 +118,10 @@ class PostController extends Controller
         ], $messages)->validate();
 
         $post = $id !== 'create' ? Post::forCurrentUser()->find($id) : new Post(['id' => request('id')]);
+
+        if($data["featured"] === true) {
+            Post::query()->where('featured', true)->update(['featured' => false]);
+        }
 
         $post->fill($data);
         $post->meta = $data['meta'];

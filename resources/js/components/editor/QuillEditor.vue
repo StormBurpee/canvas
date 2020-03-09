@@ -154,6 +154,8 @@
     import DividerBlot from './DividerBlot'
     import EmbedLinkBlot from './EmbedLinkBlot'
     import Closable from '../../../js/directives/Closable'
+    import HeaderBlot from "./HeaderBlot";
+    import {QuoteBlot, QuoteBlockContainer} from "./QuoteBlock";
 
     export default {
         name: 'quill-editor',
@@ -219,16 +221,20 @@
                 Quill.register(EmbedImageBlot, true)
                 Quill.register(EmbedVideoBlot, true)
                 Quill.register(EmbedContentBlot, true)
+                Quill.register(HeaderBlot, true);
+                Quill.register(QuoteBlot, true);
 
-                const icons = Quill.import('ui/icons')
-                icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg')
+                const icons = Quill.import('ui/icons');
+                icons.header[3] = require('!html-loader!quill/assets/icons/header-3.svg');
+                icons.header[4] = require('!html-loader!quill/assets/icons/header-4.svg');
+                icons.quote = require('!html-loader!quill/assets/icons/blockquote.svg');
 
                 let quill = new Quill(this.$refs.editor, {
                     modules: {
                         syntax: true,
                         toolbar: [
                             ['bold', 'italic', 'code', 'link'],
-                            [{header: '2'}, {header: '3'}],
+                            [{header: '1'}, {header: '2'}, {header: '3'}, {header: '4'}],
                             ['blockquote', 'code-block'],
                         ],
                     },

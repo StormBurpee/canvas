@@ -12,6 +12,7 @@ export const mutations = {
         payload.published_at = get(data, 'published_at', '')
         payload.featured_image = get(data, 'featured_image', '')
         payload.featured_image_caption = get(data, 'featured_image_caption', '')
+        payload.featured = get(data, 'featured', false);
 
         payload.meta = {}
         payload.meta.description = get(data, 'meta.description', '')

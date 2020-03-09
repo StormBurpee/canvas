@@ -1,5 +1,5 @@
 {
-    "name": "cnvs/canvas",
+    "name": "stormburpee/canvas",
     "description": "A Laravel publishing platform",
     "keywords": ["canvas", "laravel", "publishing", "platform"],
     "license": "MIT",
@@ -12,6 +12,10 @@
         {
             "name": "Todd Austin",
             "email": "austin.todd.j@gmail.com"
+        },
+        {
+            "name": "Storm Burpee",
+            "email": "stormburpee@gmail.com"
         }
     ],
     "require": {
