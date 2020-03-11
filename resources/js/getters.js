@@ -4,6 +4,9 @@ export const getters = {
     },
     activeTag(state) {
         return state.activeTag
+    },
+    activeTopic(state) {
+        return state.activeTopic
     }
 }
 

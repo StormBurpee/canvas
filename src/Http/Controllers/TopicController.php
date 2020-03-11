@@ -65,6 +65,8 @@ class TopicController extends Controller
             'name' => request('name'),
             'slug' => request('slug'),
             'user_id' => request()->user()->id,
+            'featured_image' => request('featured_image'),
+            'description' => request('description')
         ];
 
         $messages = [

@@ -1,6 +1,7 @@
 export const state = {
     activePost: {},
-    activeTag: {}
+    activeTag: {},
+    activeTopic: {}
 }
 
 export default {
