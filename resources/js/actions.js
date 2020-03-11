@@ -3,6 +3,10 @@ export const actions = {
         context.commit('setActivePost', payload)
     },
 
+    setActiveTag(context, payload) {
+        context.commit('setActiveTag', payload)
+    },
+
     updatePostBody(context, body) {
         context.commit('updatePostBody', body)
     },

@@ -28,6 +28,9 @@
                         </svg>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                        <a href="#" class="dropdown-item" @click="showFeaturedImageModal">
+                            Featured Image
+                        </a>
                         <a href="#" class="dropdown-item text-danger" @click="showDeleteModal">
                             {{ trans.app.delete }}
                         </a>
@@ -57,6 +60,23 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group mb-5">
+                    <div class="col-lg-12">
+                        <input
+                            type="text"
+                            name="description"
+                            autocomplete="off"
+                            v-model="form.description"
+                            title="Description"
+                            class="form-control-lg form-control border-0 px-0 bg-transparent"
+                            placeholder="Description for tag"
+                        />
+
+                        <div v-if="form.errors.description" class="invalid-feedback d-block">
+                            <strong>{{ form.errors.description[0] }}</strong>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <div class="col-lg-12">
                         <p class="lead text-muted">
@@ -77,6 +97,11 @@
             :header="trans.app.delete"
             :message="trans.app.deleted_tags_are_gone_forever">
         </delete-modal>
+
+        <featured-image-modal
+            v-if="isReady"
+            ref="featuredImageModal"
+        />
     </div>
 </template>
 
@@ -85,6 +110,7 @@
     import NProgress from 'nprogress'
     import PageHeader from '../../components/PageHeader'
     import DeleteModal from '../../components/modals/DeleteModal'
+    import FeaturedImageModal from "../../components/modals/TagFeaturedImageModal";
 
     export default {
         name: 'tags-edit',
@@ -92,6 +118,7 @@
         components: {
             PageHeader,
             DeleteModal,
+            FeaturedImageModal
         },
 
         data() {
@@ -102,6 +129,8 @@
                     id: '',
                     name: '',
                     slug: '',
+                    description: '',
+                    featured_image: '',
                     errors: [],
                     isSaving: false,
                     hasSuccess: false,
@@ -128,10 +157,14 @@
                     .then(response => {
                         this.tag = response.data
                         this.form.id = response.data.id
+                        this.$store.dispatch('setActiveTag', this.tag);
+                        console.log(this.tag, this.$store.getters.activeTag);
 
                         if (this.id !== 'create') {
                             this.form.name = response.data.name
                             this.form.slug = response.data.slug
+                            this.form.featured_image = response.data.featured_image;
+                            this.form.description = response.data.description;
                         }
 
                         this.isReady = true
@@ -143,10 +176,15 @@
                     })
             },
 
+            save() {
+                this.saveTag();
+            },
+
             saveTag() {
                 this.form.errors = []
                 this.form.isSaving = true
                 this.form.hasSuccess = false
+                this.form.featured_image = this.$store.getters.activeTag.featured_image;
 
                 this.request()
                     .post('/api/tags/' + this.id, this.form)
@@ -182,6 +220,10 @@
 
             showDeleteModal() {
                 $(this.$refs.deleteModal.$el).modal('show')
+            },
+
+            showFeaturedImageModal() {
+                $(this.$refs.featuredImageModal.$el).modal('show')
             },
         },
     }

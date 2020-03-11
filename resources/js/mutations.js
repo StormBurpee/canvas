@@ -28,6 +28,21 @@ export const mutations = {
         state.activePost = payload
     },
 
+    setActiveTag(state, data) {
+        let payload = {}
+
+        payload.id = get(data, 'id', 'create');
+        payload.name = get(data, 'name', '');
+        payload.slug = get(data, 'slug', '');
+        payload.featured_image = get(data, 'featured_image', null);
+
+        payload.errors = [];
+        payload.isSaving = false;
+        payload.hasSuccess = false;
+
+        state.activeTag = payload
+    },
+
     updatePostBody(state, data) {
         state.activePost.body = data
     },

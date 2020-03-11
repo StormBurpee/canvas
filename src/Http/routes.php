@@ -40,4 +40,7 @@ Route::prefix('api')->group(function () {
     });
 });
 
-Route::get('/{view?}', 'ViewController')->where('view', '(.*)')->name('canvas');
+Route::get('/{view?}', 'ViewController')
+    ->middleware(['can:view admin'])
+    ->where('view', '(.*)')
+    ->name('canvas');
